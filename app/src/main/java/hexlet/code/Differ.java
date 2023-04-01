@@ -3,7 +3,10 @@ package hexlet.code;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2) throws IOException {
@@ -19,7 +22,9 @@ public class Differ {
         return result.toString();
     }
 
-    private static StringBuilder proceedAllKeys(Map<String, String> map1, Map<String, String> map2, Set<String> allKeys) {
+    private static StringBuilder proceedAllKeys(Map<String, String> map1,
+                                                Map<String, String> map2,
+                                                Set<String> allKeys) {
         StringBuilder sb = new StringBuilder();
         for (String key : allKeys) {
             String value1 = map1.get(key);
