@@ -14,6 +14,12 @@ public class Differ {
         allKeys.addAll(map1.keySet());
         allKeys.addAll(map2.keySet());
 
+        StringBuilder result = proceedAllKeys(map1, map2, allKeys);
+
+        return result.toString();
+    }
+
+    private static StringBuilder proceedAllKeys(Map<String, String> map1, Map<String, String> map2, Set<String> allKeys) {
         StringBuilder sb = new StringBuilder();
         for (String key : allKeys) {
             String value1 = map1.get(key);
@@ -31,36 +37,43 @@ public class Differ {
                 sb.append("+ ").append(key).append(": ").append(value2).append("\n");
             }
         }
-
-        return sb.toString();
+        return sb;
     }
 
     private static Map<String, String> readJsonFile(String filePath) throws IOException {
+        String json = getFileAsString(filePath);
+        if (json.isEmpty()) {
+            return new HashMap<>();
+        }
+        return buildMap(json);
+    }
+
+    private static Map<String, String> buildMap(String json) {
         Map<String, String> map = new HashMap<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            StringBuilder sb = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
-                sb.append(line.trim());
-            }
-            String json = sb.toString();
-            if (json.isEmpty()) {
-                return map;
-            }
-            json = json.substring(1, json.length() - 1); // remove braces
-            String[] entries = json.split(",");
-            for (String entry : entries) {
-                String[] parts = entry.split(":");
-                String key = parts[0].trim().substring(1, parts[0].length() - 1); // remove quotes
-                String value = parts[1].trim();
-                if (value.equals("true") || value.equals("false") || isNumeric(value)) {
-                    map.put(key, value);
-                } else {
-                    map.put(key, value.substring(1, value.length() - 1)); // remove quotes
-                }
+        json = json.substring(1, json.length() - 1); // remove braces
+        String[] entries = json.split(",");
+        for (String entry : entries) {
+            String[] parts = entry.split(":");
+            String key = parts[0].trim().substring(1, parts[0].length() - 1); // remove quotes
+            String value = parts[1].trim();
+            if (value.equals("true") || value.equals("false") || isNumeric(value)) {
+                map.put(key, value);
+            } else {
+                map.put(key, value.substring(1, value.length() - 1)); // remove quotes
             }
         }
         return map;
+    }
+
+    private static String getFileAsString(String filePath) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line.trim());
+            }
+            return sb.toString();
+        }
     }
 
     private static boolean isNumeric(String s) {
