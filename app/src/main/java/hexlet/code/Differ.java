@@ -44,6 +44,9 @@ public class Differ {
                 sb.append(line.trim());
             }
             String json = sb.toString();
+            if (json.isEmpty()) {
+                return map;
+            }
             json = json.substring(1, json.length() - 1); // remove braces
             String[] entries = json.split(",");
             for (String entry : entries) {
