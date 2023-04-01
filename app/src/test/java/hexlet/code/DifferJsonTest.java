@@ -8,32 +8,29 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class DifferTest {
+class DifferJsonTest {
 
     private static String absoluteFilePath1;
     private static String absoluteFilePath2;
     private static String absoluteFilePath3;
     private static String absoluteFilePath4;
-    private static String absoluteEmptyFilePath1;
-    private static String absoluteEmptyFilePath2;
+    private static String absoluteEmptyFilePath;
 
     @BeforeAll
     static void setUp() {
         String resourcesPath = new File("src/test/resources").getAbsolutePath();
 
-        String filePath1 = "/file1.json";
-        String filePath2 = "/file2.json";
-        String filePath3 = "/file3.json";
-        String filePath4 = "/file4.json";
-        String emptyFilePath1 = "/empty1.json";
-        String emptyFilePath2 = "/empty2.json";
+        String filePath1 = "/json/file1.json";
+        String filePath2 = "/json/file2.json";
+        String filePath3 = "/json/file3.json";
+        String filePath4 = "/json/file4.json";
+        String emptyFilePath1 = "/json/empty.json";
 
         absoluteFilePath1 = resourcesPath + filePath1;
         absoluteFilePath2 = resourcesPath + filePath2;
         absoluteFilePath3 = resourcesPath + filePath3;
         absoluteFilePath4 = resourcesPath + filePath4;
-        absoluteEmptyFilePath1 = resourcesPath + emptyFilePath1;
-        absoluteEmptyFilePath2 = resourcesPath + emptyFilePath2;
+        absoluteEmptyFilePath = resourcesPath + emptyFilePath1;
     }
 
     @Test
@@ -56,7 +53,7 @@ class DifferTest {
     void testDiffEmptyFiles() throws IOException {
         String expectedOutput = "";
 
-        String actualOutput = Differ.generate(absoluteEmptyFilePath1, absoluteEmptyFilePath2);
+        String actualOutput = Differ.generate(absoluteEmptyFilePath, absoluteEmptyFilePath);
 
         assertEquals(expectedOutput, actualOutput);
     }
@@ -70,7 +67,7 @@ class DifferTest {
                                 - timeout: 50
                                 """;
 
-        String actualOutput = Differ.generate(absoluteFilePath1, absoluteEmptyFilePath2);
+        String actualOutput = Differ.generate(absoluteFilePath1, absoluteEmptyFilePath);
 
         assertEquals(expectedOutput, actualOutput);
     }
