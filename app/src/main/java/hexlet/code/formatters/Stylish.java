@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Stylish implements Formatter {
+public class Stylish implements FormatterInterface {
     public StringBuilder proceedAllKeys(Map<String, String> map1,
                                         Map<String, String> map2) {
         Set<String> allKeys = new TreeSet<>();

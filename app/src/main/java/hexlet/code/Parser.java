@@ -119,8 +119,4 @@ public class Parser {
             return sb.toString();
         }
     }
-
-    private static boolean isNumeric(String s) {
-        return s != null && s.matches("[-+]?\\d*\\.?\\d+");
-    }
 }
