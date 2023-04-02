@@ -14,6 +14,8 @@ class DifferJsonTest {
     private static String absoluteFilePath2;
     private static String absoluteFilePath3;
     private static String absoluteFilePath4;
+    private static String absoluteFilePath5;
+    private static String absoluteFilePath6;
     private static String absoluteEmptyFilePath;
 
     @BeforeAll
@@ -24,12 +26,16 @@ class DifferJsonTest {
         String filePath2 = "/json/file2.json";
         String filePath3 = "/json/file3.json";
         String filePath4 = "/json/file4.json";
+        String filePath5 = "/json/file5.json";
+        String filePath6 = "/json/file6.json";
         String emptyFilePath1 = "/json/empty.json";
 
         absoluteFilePath1 = resourcesPath + filePath1;
         absoluteFilePath2 = resourcesPath + filePath2;
         absoluteFilePath3 = resourcesPath + filePath3;
         absoluteFilePath4 = resourcesPath + filePath4;
+        absoluteFilePath5 = resourcesPath + filePath5;
+        absoluteFilePath6 = resourcesPath + filePath6;
         absoluteEmptyFilePath = resourcesPath + emptyFilePath1;
     }
 
@@ -84,6 +90,39 @@ class DifferJsonTest {
                                 """;
 
         String actualOutput = Differ.generate(absoluteFilePath3, absoluteFilePath4);
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void testNestedValues() throws IOException {
+        String expectedOutput = """
+                                  chars1: [a, b, c]
+                                - chars2: [d, e, f]
+                                + chars2: false
+                                - checked: false
+                                + checked: true
+                                - default: null
+                                + default: [value1, value2]
+                                - id: 45
+                                + id: null
+                                - key1: value1
+                                + key2: value2
+                                  numbers1: [1, 2, 3, 4]
+                                - numbers2: [2, 3, 4, 5]
+                                + numbers2: [22, 33, 44, 55]
+                                - numbers3: [3, 4, 5]
+                                + numbers4: [4, 5, 6]
+                                + obj1: {nestedKey=value, isNested=true}
+                                - setting1: Some value
+                                + setting1: Another value
+                                - setting2: 200
+                                + setting2: 300
+                                - setting3: true
+                                + setting3: none
+                                """;
+
+        String actualOutput = Differ.generate(absoluteFilePath5, absoluteFilePath6);
 
         assertEquals(expectedOutput, actualOutput);
     }

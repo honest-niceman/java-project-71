@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 import static picocli.CommandLine.Command;
@@ -31,6 +32,7 @@ public class DifferCommand implements Callable<Integer> {
             System.out.println(diff);
             return 0;
         } catch (Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
             return 1;
         }
     }

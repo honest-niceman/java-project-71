@@ -3,12 +3,17 @@ package hexlet.code;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Parser {
@@ -52,13 +57,15 @@ public class Parser {
             Object value = entry.getValue();
             if (value instanceof Map) {
                 Map<String, String> nestedMap = flatten((Map<String, Object>) value);
+                StringBuilder sb = new StringBuilder("{");
                 for (Map.Entry<String, String> nestedEntry : nestedMap.entrySet()) {
-                    String nestedKey = key + "." + nestedEntry.getKey();
-                    String nestedValue = nestedEntry.getValue();
-                    result.put(nestedKey, nestedValue);
+                    sb.append(nestedEntry.getKey()).append("=").append(nestedEntry.getValue()).append(", ");
                 }
+                sb.setLength(sb.length() - 2); // remove the last comma and space
+                sb.append("}");
+                result.put(key, sb.toString());
             } else {
-                String stringValue = (value != null) ? value.toString() : "";
+                String stringValue = (value != null) ? value.toString() : "null";
                 result.put(key, stringValue);
             }
         }
@@ -75,17 +82,29 @@ public class Parser {
 
     private static Map<String, String> buildMap(String json) {
         Map<String, String> map = new HashMap<>();
-        json = json.substring(1, json.length() - 1); // remove braces
-        String[] entries = json.split(",");
-        for (String entry : entries) {
-            String[] parts = entry.split(":");
-            String key = parts[0].trim().substring(1, parts[0].length() - 1); // remove quotes
-            String value = parts[1].trim();
-            if (value.equals("true") || value.equals("false") || isNumeric(value)) {
-                map.put(key, value);
-            } else {
-                map.put(key, value.substring(1, value.length() - 1)); // remove quotes
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            Iterator<String> keys = jsonObject.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                Object value = jsonObject.get(key);
+                if (value instanceof JSONArray) {
+                    map.put(key, Arrays.toString(((JSONArray) value).toList().toArray()));
+                } else if (value instanceof JSONObject) {
+                    Map<String, String> nestedMap = buildMap(value.toString());
+                    StringBuilder nestedObject = new StringBuilder("{");
+                    for (String nestedKey : nestedMap.keySet()) {
+                        nestedObject.append(nestedKey).append("=").append(nestedMap.get(nestedKey)).append(", ");
+                    }
+                    nestedObject.delete(nestedObject.length() - 2, nestedObject.length());
+                    nestedObject.append("}");
+                    map.put(key, nestedObject.toString());
+                } else {
+                    map.put(key, String.valueOf(value));
+                }
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return map;
     }
