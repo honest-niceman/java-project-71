@@ -14,7 +14,7 @@ import static picocli.CommandLine.Parameters;
 public class DifferCommand implements Callable<Integer> {
 
     @Option(names = {"-f", "--format"},
-            defaultValue = "stylish",
+            defaultValue = "json",
             description = "output format [default: ${DEFAULT-VALUE}]",
             paramLabel = "format")
     private String format;
