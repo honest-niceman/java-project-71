@@ -28,7 +28,10 @@ public class DifferCommand implements Callable<Integer> {
     @Override
     public Integer call() {
         try {
-            String diff = Differ.generate(filePath1, filePath2);
+            String diff = "";
+            if (format.trim().equals("stylish")) {
+                diff = Differ.generate(filePath1, filePath2);
+            }
             System.out.println(diff);
             return 0;
         } catch (Exception e) {
