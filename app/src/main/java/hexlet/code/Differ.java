@@ -2,6 +2,7 @@ package hexlet.code;
 
 import hexlet.code.formatters.Formatter;
 import hexlet.code.formatters.FormatterInterface;
+import hexlet.code.parsers.Parser;
 
 import java.io.IOException;
 import java.util.Map;

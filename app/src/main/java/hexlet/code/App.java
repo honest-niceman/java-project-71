@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.commands.DifferCommand;
 import picocli.CommandLine;
 
 public class App {

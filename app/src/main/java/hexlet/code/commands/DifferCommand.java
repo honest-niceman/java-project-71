@@ -1,4 +1,6 @@
-package hexlet.code;
+package hexlet.code.commands;
+
+import hexlet.code.Differ;
 
 import java.util.Arrays;
 import java.util.concurrent.Callable;
