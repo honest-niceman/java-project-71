@@ -7,9 +7,11 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class JsonParser {
@@ -30,7 +32,11 @@ public class JsonParser {
                 String key = keys.next();
                 Object value = jsonObject.get(key);
                 if (value instanceof JSONArray) {
-                    map.put(key, Arrays.toString(((JSONArray) value).toList().toArray()));
+                    List<Object> list = new ArrayList<>();
+                    for (int i = 0; i < ((JSONArray) value).length(); i++) {
+                        list.add(((JSONArray) value).get(i));
+                    }
+                    map.put(key, Arrays.toString(list.toArray()));
                 } else if (value instanceof JSONObject) {
                     Map<String, String> nestedMap = buildMap(value.toString());
                     proceedNestedObject(map, key, nestedMap);
