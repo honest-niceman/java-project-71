@@ -31,19 +31,19 @@ class DifferJsonTest {
     static void setUp() {
         String resourcesPath = new File("src/test/resources").getAbsolutePath();
 
-        String filePath1 = "/inputs/json/file1.json";
-        String filePath2 = "/inputs/json/file2.json";
-        String filePath3 = "/inputs/json/file3.json";
-        String filePath4 = "/inputs/json/file4.json";
-        String filePath5 = "/inputs/json/file5.json";
-        String filePath6 = "/inputs/json/file6.json";
-        String emptyFilePath1 = "/inputs/json/empty.json";
-        String outputFilePath1 = "/outputs/stylish/output1.txt";
-        String outputFilePath2 = "/outputs/stylish/output2.txt";
-        String outputFilePath3 = "/outputs/stylish/output3.txt";
-        String outputFilePath4 = "/outputs/stylish/output4.txt";
-        String outputFilePath5 = "/outputs/plain/output1.txt";
-        String outputFilePath6 = "/outputs/json/output1.txt";
+        String filePath1 = "/fixtures/file1.json";
+        String filePath2 = "/fixtures/file2.json";
+        String filePath3 = "/fixtures/file3.json";
+        String filePath4 = "/fixtures/file4.json";
+        String filePath5 = "/fixtures/file5.json";
+        String filePath6 = "/fixtures/file6.json";
+        String emptyFilePath1 = "/fixtures/empty.json";
+        String outputFilePath1 = "/fixtures/stylish-output1.txt";
+        String outputFilePath2 = "/fixtures/stylish-output2.txt";
+        String outputFilePath3 = "/fixtures/stylish-output3.txt";
+        String outputFilePath4 = "/fixtures/stylish-output4.txt";
+        String outputFilePath5 = "/fixtures/plain-output1.txt";
+        String outputFilePath6 = "/fixtures/json-output1.txt";
 
         absoluteFilePath1 = resourcesPath + filePath1;
         absoluteFilePath2 = resourcesPath + filePath2;

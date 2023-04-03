@@ -30,19 +30,19 @@ public class DifferYamlTest {
     static void setUp() {
         String resourcesPath = new File("src/test/resources").getAbsolutePath();
 
-        String filePath1 = "/inputs/yaml/file1.yaml";
-        String filePath2 = "/inputs/yaml/file2.yaml";
-        String filePath3 = "/inputs/yaml/file3.yaml";
-        String filePath4 = "/inputs/yaml/file4.yaml";
-        String filePath5 = "/inputs/yaml/file5.yaml";
-        String filePath6 = "/inputs/yaml/file6.yaml";
-        String emptyFilePath1 = "/inputs/yaml/empty.yaml";
-        String outputFilePath1 = "/outputs/stylish/output1.txt";
-        String outputFilePath2 = "/outputs/stylish/output2.txt";
-        String outputFilePath3 = "/outputs/stylish/output3.txt";
-        String outputFilePath4 = "/outputs/stylish/output4.txt";
-        String outputFilePath5 = "/outputs/plain/output1.txt";
-        String outputFilePath6 = "/outputs/json/output1.txt";
+        String filePath1 = "/fixtures/file1.yaml";
+        String filePath2 = "/fixtures/file2.yaml";
+        String filePath3 = "/fixtures/file3.yaml";
+        String filePath4 = "/fixtures/file4.yaml";
+        String filePath5 = "/fixtures/file5.yaml";
+        String filePath6 = "/fixtures/file6.yaml";
+        String emptyFilePath1 = "/fixtures/empty.yaml";
+        String outputFilePath1 = "/fixtures/stylish-output1.txt";
+        String outputFilePath2 = "/fixtures/stylish-output2.txt";
+        String outputFilePath3 = "/fixtures/stylish-output3.txt";
+        String outputFilePath4 = "/fixtures/stylish-output4.txt";
+        String outputFilePath5 = "/fixtures/plain-output1.txt";
+        String outputFilePath6 = "/fixtures/json-output1.txt";
 
         absoluteFilePath1 = resourcesPath + filePath1;
         absoluteFilePath2 = resourcesPath + filePath2;
