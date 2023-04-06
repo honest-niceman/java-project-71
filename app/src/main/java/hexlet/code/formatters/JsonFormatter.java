@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class JsonFormatter implements FormatterInterface {
+public final class JsonFormatter implements FormatterInterface {
 
     @Override
     public String proceedAllKeys(Map<String, String> map1, Map<String, String> map2) {
