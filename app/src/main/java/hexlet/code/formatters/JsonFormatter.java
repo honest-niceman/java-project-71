@@ -9,7 +9,7 @@ import java.util.TreeSet;
 public class JsonFormatter implements FormatterInterface {
 
     @Override
-    public StringBuilder proceedAllKeys(Map<String, String> map1, Map<String, String> map2) {
+    public String proceedAllKeys(Map<String, String> map1, Map<String, String> map2) {
         Set<String> allKeys = getAllKeys(map1, map2);
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
@@ -26,7 +26,7 @@ public class JsonFormatter implements FormatterInterface {
         }
         removeLastComma(sb);
         sb.append("}");
-        return sb;
+        return sb.toString();
     }
 
     private static void removeLastComma(StringBuilder sb) {

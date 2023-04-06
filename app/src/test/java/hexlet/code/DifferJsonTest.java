@@ -71,7 +71,7 @@ class DifferJsonTest {
 
     @Test
     void testDiffEmptyFiles() throws IOException {
-        String expectedOutput = "{\n}\n";
+        String expectedOutput = "{\n}";
 
         String actualOutput = Differ.generate(absoluteEmptyFilePath, absoluteEmptyFilePath);
 

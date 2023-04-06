@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Plain implements FormatterInterface {
-    public StringBuilder proceedAllKeys(Map<String, String> map1, Map<String, String> map2) {
+    public String proceedAllKeys(Map<String, String> map1, Map<String, String> map2) {
         Set<String> allKeys = getAllKeys(map1, map2);
         StringBuilder sb = new StringBuilder();
         for (String key : allKeys) {
@@ -13,7 +13,7 @@ public class Plain implements FormatterInterface {
             String afterValue = map2.get(key);
             appendLine(sb, key, beforeValue, afterValue);
         }
-        return sb;
+        return sb.toString().trim();
     }
 
     private static Set<String> getAllKeys(Map<String, String> map1, Map<String, String> map2) {

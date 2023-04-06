@@ -5,8 +5,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Stylish implements FormatterInterface {
-    public StringBuilder proceedAllKeys(Map<String, String> map1,
-                                        Map<String, String> map2) {
+    public String proceedAllKeys(Map<String, String> map1,
+                                 Map<String, String> map2) {
         Set<String> allKeys = getAllKeys(map1, map2);
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
@@ -22,7 +22,7 @@ public class Stylish implements FormatterInterface {
             }
         }
         sb.append("}");
-        return sb;
+        return sb.toString();
     }
 
     private static Set<String> getAllKeys(Map<String, String> map1, Map<String, String> map2) {

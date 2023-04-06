@@ -18,8 +18,6 @@ public class Differ {
         Map<String, String> map1 = Parser.parse(filePath1);
         Map<String, String> map2 = Parser.parse(filePath2);
 
-        StringBuilder result = formatter.proceedAllKeys(map1, map2);
-
-        return result.toString();
+        return formatter.proceedAllKeys(map1, map2);
     }
 }
