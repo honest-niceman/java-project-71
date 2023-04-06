@@ -21,7 +21,7 @@ public class Stylish implements FormatterInterface {
                 sb.append("  + ").append(key).append(": ").append(value2).append("\n");
             }
         }
-        sb.append("}\n");
+        sb.append("}");
         return sb;
     }
 

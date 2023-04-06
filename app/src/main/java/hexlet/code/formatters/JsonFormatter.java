@@ -25,7 +25,7 @@ public class JsonFormatter implements FormatterInterface {
             }
         }
         removeLastComma(sb);
-        sb.append("}\n");
+        sb.append("}");
         return sb;
     }
 
