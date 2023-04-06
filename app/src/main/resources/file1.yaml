@@ -1,3 +1,4 @@
+{
 setting1: Some value
 setting2: 200
 setting3: true
@@ -27,3 +28,4 @@ chars2:
   - d
   - e
   - f
+}

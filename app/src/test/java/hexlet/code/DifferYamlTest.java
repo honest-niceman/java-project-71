@@ -70,7 +70,7 @@ public class DifferYamlTest {
 
     @Test
     void testDiffEmptyFiles() throws IOException {
-        String expectedOutput = "";
+        String expectedOutput = "{\n}\n";
 
         String actualOutput = Differ.generate(absoluteEmptyFilePath, absoluteEmptyFilePath);
 

@@ -8,11 +8,13 @@ public class Plain implements FormatterInterface {
     public StringBuilder proceedAllKeys(Map<String, String> map1, Map<String, String> map2) {
         Set<String> allKeys = getAllKeys(map1, map2);
         StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
         for (String key : allKeys) {
             String beforeValue = map1.get(key);
             String afterValue = map2.get(key);
             appendLine(sb, key, beforeValue, afterValue);
         }
+        sb.append("}\n");
         return sb;
     }
 

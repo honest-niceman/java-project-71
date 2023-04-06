@@ -9,6 +9,7 @@ public class Stylish implements FormatterInterface {
                                         Map<String, String> map2) {
         Set<String> allKeys = getAllKeys(map1, map2);
         StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
         for (String key : allKeys) {
             String value1 = map1.get(key);
             String value2 = map2.get(key);
@@ -20,6 +21,7 @@ public class Stylish implements FormatterInterface {
                 sb.append("+ ").append(key).append(": ").append(value2).append("\n");
             }
         }
+        sb.append("}\n");
         return sb;
     }
 
