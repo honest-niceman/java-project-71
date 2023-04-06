@@ -16,9 +16,9 @@ public class Stylish implements FormatterInterface {
             if (value1 != null && value2 != null) {
                 appendUpdate(sb, key, value1, value2);
             } else if (value1 != null) {
-                sb.append("- ").append(key).append(": ").append(value1).append("\n");
+                sb.append("  - ").append(key).append(": ").append(value1).append("\n");
             } else if (value2 != null) {
-                sb.append("+ ").append(key).append(": ").append(value2).append("\n");
+                sb.append("  + ").append(key).append(": ").append(value2).append("\n");
             }
         }
         sb.append("}\n");
@@ -34,10 +34,10 @@ public class Stylish implements FormatterInterface {
 
     private static void appendUpdate(StringBuilder sb, String key, String value1, String value2) {
         if (!value1.equals(value2)) {
-            sb.append("- ").append(key).append(": ").append(value1).append("\n");
-            sb.append("+ ").append(key).append(": ").append(value2).append("\n");
+            sb.append("  - ").append(key).append(": ").append(value1).append("\n");
+            sb.append("  + ").append(key).append(": ").append(value2).append("\n");
         } else {
-            sb.append("  ").append(key).append(": ").append(value1).append("\n");
+            sb.append("    ").append(key).append(": ").append(value1).append("\n");
         }
     }
 }
