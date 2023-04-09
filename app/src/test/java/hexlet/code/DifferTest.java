@@ -9,7 +9,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class DifferTest {
+public final class DifferTest {
     private static String jsonOutput;
     private static String plainOutput;
     private static String stylishOutput;
