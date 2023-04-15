@@ -2,14 +2,18 @@ package hexlet.code.formatters;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public final class Plain implements FormatterInterface {
     public String proceed(List<Map<Object, Object>> diff) {
-        return diff.stream()
-                   .map(Plain::stringifyNode)
-                   .filter(line -> !line.isEmpty())
-                   .collect(Collectors.joining("\n"));
+        StringBuilder output = new StringBuilder();
+        for (Map<Object, Object> map : diff) {
+            String nodeString = Plain.stringifyNode(map);
+            if (!nodeString.isEmpty()) {
+                output.append(nodeString);
+                output.append("\n");
+            }
+        }
+        return output.toString().trim();
     }
 
     private static String stringifyNode(Map<Object, Object> node) {

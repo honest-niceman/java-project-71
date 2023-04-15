@@ -2,7 +2,6 @@ package hexlet.code.formatters;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public final class Stylish implements FormatterInterface {
     private static final int SPACES_COUNT = 4;
@@ -12,11 +11,14 @@ public final class Stylish implements FormatterInterface {
     }
 
     public String proceed(List<Map<Object, Object>> diff) {
-        String output = diff.stream()
-                            .map(Stylish::getNode)
-                            .collect(Collectors.joining("\n"));
-
-        return "{\n" + output + "\n}";
+        StringBuilder output = new StringBuilder();
+        output.append("{\n");
+        for (Map<Object, Object> map : diff) {
+            output.append(Stylish.getNode(map));
+            output.append("\n");
+        }
+        output.append("}");
+        return output.toString();
     }
 
     private static String getNode(Map<Object, Object> node) {

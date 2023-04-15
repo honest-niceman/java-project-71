@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2) throws Exception {
-        return generate(filePath1, filePath2, Formatter.STYLISH);
+        return generate(filePath1, filePath2, "stylish");
     }
 
     public static String generate(String filePath1, String filePath2, String formatName) throws Exception {
@@ -25,9 +25,7 @@ public class Differ {
 
 
     private static Map<Object, Object> getData(String filePath) throws Exception {
-        Path fullPath = Paths.get(filePath)
-                             .toAbsolutePath()
-                             .normalize();
+        Path fullPath = Paths.get(filePath).toAbsolutePath().normalize();
 
         if (!Files.exists(fullPath)) {
             throw new Exception("File '" + fullPath + "' does not exist");

@@ -1,11 +1,11 @@
 package hexlet.code;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 public class Tree {
     public static List<Map<Object, Object>> build(Map<Object, Object> data1, Map<Object, Object> data2) {
@@ -15,9 +15,12 @@ public class Tree {
 
         Set<Object> sortedKeys = new TreeSet<>(keys);
 
-        return sortedKeys.stream()
-                         .map(key -> getDifferenceMap(data1, data2, key))
-                         .collect(Collectors.toList());
+        List<Map<Object, Object>> result = new ArrayList<>();
+        for (Object key : sortedKeys) {
+            Map<Object, Object> diffMap = getDifferenceMap(data1, data2, key);
+            result.add(diffMap);
+        }
+        return result;
     }
 
     private static Map<Object, Object> getDifferenceMap(Map<Object, Object> data1,
