@@ -1,8 +1,8 @@
 package hexlet.code.formatters;
 
+import java.util.List;
 import java.util.Map;
 
 public interface FormatterInterface {
-    String proceedAllKeys(Map<String, String> map1,
-                          Map<String, String> map2);
+    String proceed(List<Map<Object, Object>> diff);
 }

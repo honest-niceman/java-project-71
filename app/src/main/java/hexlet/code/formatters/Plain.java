@@ -1,61 +1,45 @@
 package hexlet.code.formatters;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public final class Plain implements FormatterInterface {
-    public String proceedAllKeys(Map<String, String> map1, Map<String, String> map2) {
-        Set<String> allKeys = getAllKeys(map1, map2);
-        StringBuilder sb = new StringBuilder();
-        for (String key : allKeys) {
-            String beforeValue = map1.get(key);
-            String afterValue = map2.get(key);
-            appendLine(sb, key, beforeValue, afterValue);
-        }
-        return sb.toString().trim();
+    public String proceed(List<Map<Object, Object>> diff) {
+        return diff.stream()
+                   .map(Plain::stringifyNode)
+                   .filter(line -> !line.isEmpty())
+                   .collect(Collectors.joining("\n"));
     }
 
-    private static Set<String> getAllKeys(Map<String, String> map1, Map<String, String> map2) {
-        Set<String> allKeys = new TreeSet<>();
-        allKeys.addAll(map1.keySet());
-        allKeys.addAll(map2.keySet());
-        return allKeys;
+    private static String stringifyNode(Map<Object, Object> node) {
+        String type = (String) node.get("type");
+        String key = (String) node.get("key");
+        String value = stringify(node.get("value"));
+        String value1 = stringify(node.get("value1"));
+        String value2 = stringify(node.get("value2"));
+
+        return switch (type) {
+            case "added" -> "Property '" + key + "' was added" + " with value: " + value;
+            case "deleted" -> "Property '" + key + "' was removed";
+            case "changed" -> "Property '" + key + "' was updated." + " From " + value1 + " to " + value2;
+            case "unchanged" -> "";
+            default -> throw new RuntimeException("Unknown node type: '" + type + "'");
+        };
     }
 
-    private void appendLine(StringBuilder sb, String key, String beforeValue, String afterValue) {
-        if (beforeValue == null && afterValue == null) {
-            return;
-        }
-        if (beforeValue == null) {
-            sb.append(String.format("Property '%s' was added with value: %s\n", key, formatValue(afterValue)));
-            return;
-        }
-        if (afterValue == null) {
-            sb.append(String.format("Property '%s' was removed\n", key));
-            return;
-        }
-        if (!beforeValue.equals(afterValue)) {
-            sb.append(String.format("Property '%s' was updated. From %s to %s\n", key,
-                                    formatValue(beforeValue),
-                                    formatValue(afterValue)));
-        }
-    }
-
-    private String formatValue(String value) {
-        if (value == null || value.equals("null")) {
+    private static String stringify(Object value) {
+        if (value == null) {
             return "null";
         }
-        if (value.equals("true") || value.equals("false")) {
-            return value;
+        if (value instanceof String) {
+            return "'" + value + "'";
         }
-        if (value.matches("-?\\d+")) {
-            return value;
-        }
-        if (value.matches("\\[.*]") || value.contains("{")) {
+        if (value instanceof Map || value instanceof List) {
             return "[complex value]";
         }
-        return String.format("'%s'", value);
+        return value.toString();
     }
+
 }
 

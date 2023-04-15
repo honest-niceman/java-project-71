@@ -1,28 +1,26 @@
 package hexlet.code.parsers;
 
-import hexlet.code.utils.FileType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import java.io.IOException;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, String> parse(String filePath) throws IOException {
-        FileType type = getFilesType(filePath);
-        if (type.equals(FileType.JSON)) {
-            return JsonParser.getMap(filePath);
-        } else {
-            return YamlParser.getMap(filePath);
-        }
+    public static Map<Object, Object> parse(String content, String dataFormat) throws Exception {
+        return switch (dataFormat) {
+            case "yml", "yaml" -> parseYaml(content);
+            case "json" -> parseJson(content);
+            default -> throw new IllegalArgumentException("Supported extensions: .json, .yaml, .yml");
+        };
     }
 
-    private static FileType getFilesType(String filePath) {
-        if (filePath.endsWith(".yaml") || filePath.endsWith(".yml")) {
-            return FileType.YAML;
-        } else if (filePath.endsWith(".json")) {
-            return FileType.JSON;
-        } else {
-            throw new IllegalArgumentException("Supported extensions: .json, .yaml, .yml");
-        }
+    private static Map<Object, Object> parseJson(String content) throws Exception  {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(content, Map.class);
     }
 
+    private static Map<Object, Object> parseYaml(String content) throws Exception  {
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        return mapper.readValue(content, Map.class);
+    }
 }
